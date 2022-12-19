@@ -1,1 +1,1 @@
-Bu bir reactdersleri youtube kalanalı projesidir.
+Bu bir reactdersleri youtube kanal projesidir.

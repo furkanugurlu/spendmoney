@@ -6,24 +6,19 @@ import SignUp from "./components/SignUp";
 
 import { Layout, Menu, Breadcrumb } from "antd";
 import Login from "./components/Login";
+import CategoryPage from "./components/Category";
+import PrivateRoute from "./components/PrivateRoute";
+import Recods from "./components/Recods";
+import AppHeader from "./components/AppHeader";
+import Logout from "./components/Logout";
 
 const { Header, Content, Footer } = Layout;
 
 function App() {
   return (
     <Layout>
-      <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
-        <div className="logo" />
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={["2"]}
-          items={new Array(3).fill(null).map((_, index) => ({
-            key: String(index + 1),
-            label: `nav ${index + 1}`,
-          }))}
-        />
-      </Header>
+      <AppHeader />
+
       <Content
         className="site-layout"
         style={{ padding: "0 50px", marginTop: 100 }}
@@ -31,6 +26,15 @@ function App() {
         <Routes>
           <Route path="/register" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
+          <Route
+            path="/categories"
+            element={<PrivateRoute component={CategoryPage} />}
+          />
+          <Route
+            path="/records"
+            element={<PrivateRoute component={Recods} />}
+          />
+          <Route path="/logout" element={<Logout />} />
         </Routes>
       </Content>
       <Footer style={{ textAlign: "center" }}>

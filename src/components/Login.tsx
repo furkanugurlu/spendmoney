@@ -1,7 +1,7 @@
 import { Form, Input, Button, Result } from "antd";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AppState } from "../store";
 import { login } from "../store/actions/userActions";
 import { LoginForm } from "../types/user";
@@ -13,6 +13,7 @@ interface LocationState {
 export default function Login() {
   const locations = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = locations.state as LocationState;
   const { data, loading, error } = useSelector((state: AppState) => state.user);
 
@@ -41,7 +42,14 @@ export default function Login() {
 
   useEffect(() => {
     data.username && showSuccess("You have successfully logged in!");
-  }, []);
+  }, [data.username]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/");
+    }
+  }, [data]);
 
   return (
     <Form
@@ -59,8 +67,8 @@ export default function Login() {
         />
       )}
       <Form.Item
-        name={"Username"}
-        label="username"
+        name={"username"}
+        label="Username"
         rules={[{ required: true }]}
       >
         <Input />
